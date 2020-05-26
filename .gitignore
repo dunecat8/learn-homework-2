@@ -121,3 +121,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.env/
+README.md
+referat.txt
+referat2.txt
+result.csv
