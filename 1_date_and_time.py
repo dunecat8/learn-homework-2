@@ -10,12 +10,26 @@
 from datetime import date, timedelta, datetime
 import locale
 
-locale.setlocale(locale.LC_ALL, 'ru-RU')
+locale.setlocale(locale.LC_ALL, 'russian')
+
+months = {'Май':'мая', 'Апрель':'апреля'}
+
+def case_change(date1):
+    date1 = date1.split()
+    month = date1[1]
+    date1[1] = months.get(month)
+    date2 = ' '.join(date1)
+    return date2
 
 def print_days():
-    yesterday = (date.today() - timedelta(days=1)).strftime('%d %B %Y')
-    today = date.today().strftime('%d %B %Y')
-    thirty_days_ago = (date.today() - timedelta(days=30)).strftime('%d %B %Y')
+    date1 = (date.today() - timedelta(days=1)).strftime('%d %B %Y')
+    yesterday = case_change(date1)
+
+    date1 = date.today().strftime('%d %B %Y')
+    today = case_change(date1)
+
+    date1 = (date.today() - timedelta(days=30)).strftime('%d %B %Y')
+    thirty_days_ago = case_change(date1)
 
     print(f'Вчера было {yesterday}')
     print(f'Сегодня {today}')
@@ -26,4 +40,4 @@ def str_2_datetime(date_string):
 
 if __name__ == "__main__":
     print_days()
-    print(str_2_datetime("01/01/20 12:10:03.234567"))
+    print(str_2_datetime('01/01/20 12:10:03.234567'))
