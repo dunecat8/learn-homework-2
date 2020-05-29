@@ -14,9 +14,10 @@
 def main():
     with open ('referat.txt', encoding='utf-8') as f:
         content = f.read()
-        length = len(content)
-        wordcount = len(content.split())
-        update = content.replace('.','!')
+
+    length = len(content)
+    wordcount = len(content.split())
+    update = content.replace('.', '!')
 
     with open('referat2.txt', 'w', encoding='utf-8') as f:
         f.write(update)

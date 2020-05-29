@@ -21,8 +21,7 @@ def main():
         header = ['name', 'age', 'job']
         writer = csv.DictWriter(f, header, delimiter=';')
         writer.writeheader()
-        for row in data:
-            writer.writerow(row)
+        writer.writerows(data)
 
 if __name__ == "__main__":
     main()

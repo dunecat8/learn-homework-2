@@ -12,14 +12,27 @@ import locale
 
 locale.setlocale(locale.LC_ALL, 'russian')
 
-months = {'Май':'мая', 'Апрель':'апреля'}
+MONTHS = {'Январь':'января',
+          'Февраль':'февраля',
+          'Март':'марта',
+          'Апрель':'апреля',
+          'Май':'мая',
+          'Июнь':'июня',
+          'Июль':'июля',
+          'Август':'августа',
+          'Сентябрь':'сентября',
+          'Октябрь':'октября',
+          'Ноябрь':'ноября',
+          'Декабрь':'декабря'}
+
 
 def case_change(date1):
     date1 = date1.split()
-    month = date1[1]
-    date1[1] = months.get(month)
+    day, month, year = date1
+    date1 = day, MONTHS.get(month), year
     date2 = ' '.join(date1)
     return date2
+
 
 def print_days():
     date1 = (date.today() - timedelta(days=1)).strftime('%d %B %Y')
@@ -35,8 +48,10 @@ def print_days():
     print(f'Сегодня {today}')
     print(f'30 дней назад было {thirty_days_ago}')
 
+
 def str_2_datetime(date_string):
     return datetime.strptime(date_string, '%d/%m/%y %H:%M:%S.%f')
+
 
 if __name__ == "__main__":
     print_days()
