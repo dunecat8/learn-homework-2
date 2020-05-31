@@ -1,5 +1,9 @@
+from collections import Counter
+
 # Задание 1
 # Дан список учеников, нужно посчитать количество повторений каждого имени ученика.
+
+
 students = [
   {'first_name': 'Вася'},
   {'first_name': 'Петя'},
@@ -7,10 +11,9 @@ students = [
   {'first_name': 'Маша'},
   {'first_name': 'Петя'},
 ]
-st_list = [i.get('first_name') for i in students]
-unique = set(st_list)
-for i in unique:
-  print(f'{i}: {st_list.count(i)}')
+c = Counter([name['first_name'] for name in students])
+for name in c:
+  print(f'{name}: {c.get(name)}')
 
 # Пример вывода:
 # Вася: 1
@@ -20,6 +23,7 @@ for i in unique:
 
 # Задание 2
 # Дан список учеников, нужно вывести самое часто повторящееся имя.
+
 students = [
   {'first_name': 'Вася'},
   {'first_name': 'Петя'},
@@ -27,18 +31,16 @@ students = [
   {'first_name': 'Маша'},
   {'first_name': 'Оля'},
 ]
-st_list = [i.get('first_name') for i in students]
-st_dict = {x: st_list.count(x) for x in st_list}
-for a, b in st_dict.items():
-  if b == max(st_dict.values()):
-    print(f'Самое частое имя среди учеников: {a}')
-
+c = Counter([name['first_name'] for name in students])
+result = c.most_common()[0][0]
+print(f'Самое частое имя среди учеников: {result}')
 
 # Пример вывода:
 # Самое частое имя среди учеников: Маша
 
 # Задание 3
 # Есть список учеников в нескольких классах, нужно вывести самое частое имя в каждом классе.
+
 school_students = [
   [  # это – первый класс
     {'first_name': 'Вася'},
@@ -52,11 +54,9 @@ school_students = [
 ]
 for class_ in school_students:
   class_num = school_students.index(class_) + 1
-  st_list = [name.get('first_name') for name in class_]
-  st_dict = {x: st_list.count(x) for x in st_list}
-  for a, b in st_dict.items():
-    if b == max(st_dict.values()):
-      print(f'Самое частое имя в классе {class_num}: {a}')
+  c = Counter([name['first_name'] for name in class_])
+  result = c.most_common()[0][0]
+  print(f'Самое частое имя в классе {class_num}: {result}')
 
 # Пример вывода:
 # Самое частое имя в классе 1: Вася
@@ -65,6 +65,8 @@ for class_ in school_students:
 
 # Задание 4
 # Для каждого класса нужно вывести количество девочек и мальчиков в нём.
+
+
 school = [
   {'class': '2a', 'students': [{'first_name': 'Маша'}, {'first_name': 'Оля'}]},
   {'class': '3c', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]},
@@ -76,14 +78,12 @@ is_male = {
   'Миша': True,
 }
 for class_ in school:
-  st_list = [name.get('first_name') for name in class_.get('students')]
-  boys_count, girls_count = 0, 0
-  for student in st_list:
-    if is_male.get(student) == False:
-      girls_count += 1
-    else:
-      boys_count += 1
-  print(f'В классе {class_.get("class")} {girls_count} девочки и {boys_count} мальчика.')
+  st_list = [name['first_name'] for name in class_['students']]
+  boys_girls = ['boy' if is_male.get(name) is True else 'girl' for name in st_list ]
+  c = Counter(boys_girls)
+  girls_count = c.get('girl', 0)
+  boys_count = c.get('boy', 0)
+  print(f'В классе {class_["class"]} {girls_count} девочки и {boys_count} мальчика.')
 
 # Пример вывода:
 # В классе 2a 2 девочки и 0 мальчика.
@@ -104,13 +104,11 @@ is_male = {
 }
 
 for class_ in school:
-  st_list = [name.get('first_name') for name in class_.get('students')]
-  boys_count, girls_count = 0, 0
-  for student in st_list:
-    if not is_male.get(student):
-      girls_count += 1
-    else:
-      boys_count += 1
+  st_list = [name['first_name'] for name in class_['students']]
+  boys_girls = ['boy' if is_male.get(name) is True else 'girl' for name in st_list ]
+  c = Counter(boys_girls)
+  girls_count = c.get('girl', 0)
+  boys_count = c.get('boy', 0)
   class_['girls_count'] = girls_count
   class_['boys_count'] = boys_count
 
